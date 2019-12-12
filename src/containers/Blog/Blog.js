@@ -5,7 +5,8 @@ import FullPost from '../../components/FullPost/FullPost';
 import NewPost from '../../components/NewPost/NewPost';
 import './Blog.css';
 
-import axios from 'axios';
+// import axios from 'axios';
+import axiosInstance from '../../axios';
 
 class Blog extends Component {
     state = {
@@ -26,7 +27,7 @@ class Blog extends Component {
 
         //axios.get('https://jsonplaceholder.typicode.com/postss')
         // after seeting global axios config base url
-        axios.get('/posts')
+        axiosInstance.get('/posts')
         .then((response) => {
             // this.setState({posts: response.data});
             // console.log(response);
