@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Posts from '../Blog/Posts/Posts';
+import NewPost from './NewPost/NewPost';
 import { Route } from 'react-router-dom';
 
 import './Blog.css';
@@ -33,6 +34,10 @@ class Blog extends Component {
                 <Route path="/" exact component={Posts} />
                 {/* component needs to be a reference to the function or class we want to use 
                 so here simply what we import */}
+
+
+                <Route path="/new-post" component={NewPost} />
+                {/* no exact we want to render /new-post/1 */}
             </div>
         );
     }
