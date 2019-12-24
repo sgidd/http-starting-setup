@@ -39,3 +39,8 @@ class Blog extends Component {
 }
 
 export default Blog;
+
+// Note -
+
+// React router provides us the extra information about the loaded route through props
+// console in didmount of Posts.js
