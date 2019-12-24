@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Posts from '../Blog/Posts/Posts';
 import NewPost from './NewPost/NewPost';
-import { Route , Link} from 'react-router-dom';
+import { Route , NavLink} from 'react-router-dom';
+
+//NavLink is similar to Link but allows to stle the route
 
 import './Blog.css';
 
-// import axios from 'axios';
-//import axiosInstance from '../../axios';
 
 class Blog extends Component {
 
@@ -19,13 +19,23 @@ class Blog extends Component {
                         <ul>
 
                             {/* These always generate absolute path - the path appends to domain always  */}
-                            <li><Link to="/">Home</Link></li>
-                            <li><Link to={{
+                            <li><NavLink 
+                            to="/"
+                            exact
+                            activeClassName = "my-active"
+                            activeStyle={{
+                                color: '#fa923f',
+                                textDecoration: 'underline'
+                            }}
+                            
+                            >Home
+                            </NavLink></li>
+                            <li><NavLink to={{
                                 pathname: '/new-post',
                                 hash: '#submit',
                                 // hash - will allow us to jump to any id sumbmit if we have any
                                 search: '?quick-submit=true'
-                            }}>New Post</Link></li>
+                            }}>New Post</NavLink></li>
 
                             {/* Relative Path  */}
                             {/* <li><Link to={{
