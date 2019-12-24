@@ -43,4 +43,4 @@ export default Blog;
 // Note -
 
 // React router provides us the extra information about the loaded route through props
-// console in didmount of Posts.js
+// console in didmount of Posts.js and in newpost.js
