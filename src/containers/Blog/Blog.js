@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Posts from '../Blog/Posts/Posts';
 import NewPost from './NewPost/NewPost';
-import { Route } from 'react-router-dom';
+import { Route , Link} from 'react-router-dom';
 
 import './Blog.css';
 
@@ -17,27 +17,22 @@ class Blog extends Component {
                 <header>
                     <nav>
                         <ul>
-                            <li><a href="/">Home</a></li>
-                            <li><a href="/new-post">New Post</a></li>
+                            <li><Link to="/">Home</Link></li>
+                            <li><Link to={{
+                                pathname: '/new-post',
+                                hash: '#submit',
+                                // hash - will allow us to jump to any id sumbmit if we have any
+                                search: '?quick-submit=true'
+                            }}>New Post</Link></li>
+
+                            {/* to can be javascript object  */}
                         </ul>
                     </nav>
                 </header>
-                
-                {/* <Posts/> */}
-                {/* <Route path="/" render={ () => <h1>Home</h1>}/> */}
-                {/* react checks if the current path starts with the path string here '/' s it will display HOme in http://localhost:3000/new-post as well 
-                so add boolean prop exact for exact math of path else it will see only for the prefix*/}
-              
-                {/* <Route path="/" exact render={ () => <h1>Home</h1>}/>
-                <Route path="/"  render={ () => <h1>Home 2</h1>}/> */}
 
                 <Route path="/" exact component={Posts} />
-                {/* component needs to be a reference to the function or class we want to use 
-                so here simply what we import */}
-
-
                 <Route path="/new-post" component={NewPost} />
-                {/* no exact we want to render /new-post/1 */}
+
             </div>
         );
     }
