@@ -21,7 +21,7 @@ class Blog extends Component {
 
                             {/* These always generate absolute path - the path appends to domain always  */}
                             <li><NavLink 
-                            to="/"
+                            to="/posts"
                             exact
                             activeClassName = "my-active"
                             activeStyle={{
@@ -29,7 +29,7 @@ class Blog extends Component {
                                 textDecoration: 'underline'
                             }}
                             
-                            >Home
+                            >Posts
                             </NavLink></li>
                             <li><NavLink to={{
                                 pathname: '/new-post',
@@ -52,9 +52,8 @@ class Blog extends Component {
                 </header>
                 
                 <Switch>
-                    <Route path="/" exact component={Posts} />
                     <Route path="/new-post" component={NewPost} />
-                    <Route path="/:id" exact component={FullPost} />
+                    <Route path="/posts"  component={Posts} />
                 </Switch>
                 
 
