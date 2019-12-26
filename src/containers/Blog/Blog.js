@@ -57,8 +57,15 @@ class Blog extends Component {
                 <Switch>
                     { this.state.auth ? <Route path="/new-post" component={NewPost} /> : null }
                     <Route path="/posts"  component={Posts} />
+
+                    {/* 404 case -
+                    leave path and use render or compoenenet to render the content to display for unknownpaths in list hence it sholwud be always at bottomi  route list */}
+
+                    <Route render={() => <h1>Not Found</h1>} />
+
+
                     {/* <Route path="/"  component={Posts} /> */}
-                    <Redirect from="/" to="/posts" />
+                    {/* <Redirect from="/" to="/posts" /> */}
                     {/* outside swicth can not specify from="" , there use conditional routing */}
                 </Switch>
                 
