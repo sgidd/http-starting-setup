@@ -29,7 +29,15 @@ class NewPost extends Component {
             //     content: '',
             //     author: 'Max'
             // })
-            this.setState({submitted : true});
+            
+            //this.setState({submitted : true});
+        // this.props.history.push('/posts');
+
+            //Note - push adds a stack of pages - the pused page or comp over present stack of pages or comps
+            //redirect - replaces the current comp or page with the new route
+            //replace does same as redirecting
+
+            this.props.history.replace('/posts');
         });
     }
 
