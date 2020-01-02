@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import Blog from './containers/Blog/Blog';
+import Table from './components/Table/Table';
 
 import { BrowserRouter} from 'react-router-dom';
 
@@ -9,7 +10,8 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Blog />
+          {/* <Blog /> */}
+          <Table />
         </div>
       </BrowserRouter>
      
