@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import './NewPost.css';
+import { Redirect } from 'react-router-dom';
 
 class NewPost extends Component {
     state = {
         title: '',
         content: '',
-        author: 'Max'
+        author: 'Max',
+        submitted: false
     }
 
     componentDidMount (){
@@ -22,17 +24,32 @@ class NewPost extends Component {
         axios.post('https://jsonplaceholder.typicode.com/posts', newPostObj)
         .then(response => {
             console.log(response);
-            this.setState({
-                title: '',
-                content: '',
-                author: 'Max'
-            })
+            // this.setState({
+            //     title: '',
+            //     content: '',
+            //     author: 'Max'
+            // })
+            
+            //this.setState({submitted : true});
+        // this.props.history.push('/posts');
+
+            //Note - push adds a stack of pages - the pused page or comp over present stack of pages or comps
+            //redirect - replaces the current comp or page with the new route
+            //replace does same as redirecting
+
+            this.props.history.replace('/posts');
         });
     }
 
     render () {
+        let redirect = null;
+
+        if(this.state.submitted) {
+            redirect = <Redirect to="/posts" />
+        }
         return (
             <div className="NewPost">
+                { redirect }
                 <h1>Add a Post</h1>
                 <label>Title</label>
                 <input type="text" value={this.state.title} onChange={(event) => this.setState({title: event.target.value})} />

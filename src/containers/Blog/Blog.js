@@ -1,15 +1,29 @@
 import React, { Component } from 'react';
 import Posts from '../Blog/Posts/Posts';
-import NewPost from './NewPost/NewPost';
 import FullPost from './FullPost/FullPost';
 import { Route , NavLink , Switch, Redirect} from 'react-router-dom';
-
 //NavLink is similar to Link but allows to stle the route
-
 import './Blog.css';
 
 
+//lazy loading
+//import NewPost from './NewPost/NewPost';
+//this import way informs webpack to include this dependency in global bundle which we need to avaoid in lazy loading
+//we want to load it when we need it
+
+import asyncComponent from '../../hoc/asyncComponent';
+const AsyncNewPost =  asyncComponent( () => {
+    return import('./NewPost/NewPost');
+});
+
+//import('./NewPost/NewPost') import keyword as a function
+//this is a special syntax - 'dynamic import syntax'  which means watever comes in parenthesis will impoorted only when the call back func in asyncComponent is executed
+//and that func is only executed once we render asyncNewPost to the screen
+// so in place of NewPost in route use 'asyncNewPost'
 class Blog extends Component {
+    state ={
+        auth : true
+    }
 
     render () {
 
@@ -52,10 +66,17 @@ class Blog extends Component {
                 </header>
                 
                 <Switch>
-                    <Route path="/new-post" component={NewPost} />
+                    { this.state.auth ? <Route path="/new-post" component={AsyncNewPost} /> : null }
                     <Route path="/posts"  component={Posts} />
+
+                    {/* 404 case -
+                    leave path and use render or compoenenet to render the content to display for unknownpaths in list hence it sholwud be always at bottomi  route list */}
+
+                    <Route render={() => <h1>Not Found</h1>} />
+
+
                     {/* <Route path="/"  component={Posts} /> */}
-                    <Redirect from="/" to="/posts" />
+                    {/* <Redirect from="/" to="/posts" /> */}
                     {/* outside swicth can not specify from="" , there use conditional routing */}
                 </Switch>
                 
