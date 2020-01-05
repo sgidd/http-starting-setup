@@ -8,15 +8,17 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 import PropTypes from 'prop-types';
 
 const headCells = [
-    { id: 'name', numeric: false, disablePadding: true, label: 'Dessert (100g serving)' },
-    { id: 'calories', numeric: true, disablePadding: false, label: 'Calories' },
-    { id: 'fat', numeric: true, disablePadding: false, label: 'Fat (g)' },
-    { id: 'carbs', numeric: true, disablePadding: false, label: 'Carbs (g)' },
-    { id: 'protein', numeric: true, disablePadding: false, label: 'Protein (g)' },
+    { id: 'name', numeric: false, disablePadding: true, label: 'Name' },
+    { id: 'email', numeric: false, disablePadding: false, label: 'Email Id' },
+    { id: 'timesheet', numeric: true, disablePadding: false, label: 'Timesheet' },
+    { id: 'digitalWall', numeric: true, disablePadding: false, label: 'Digital Wall' },
+    { id: 'sqcdp', numeric: true, disablePadding: false, label: 'SQCDP' },
   ];
 
 function EnhancedTableHead(props) {
     const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+    console.log(numSelected)
+    console.log(rowCount)
     const createSortHandler = property => event => {
       onRequestSort(event, property);
     };

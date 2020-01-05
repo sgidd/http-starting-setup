@@ -3,24 +3,15 @@ import EnhancedTable from '../EnhancedTable/EnhancedTable';
 
 
 
-function createData(name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
+function createData(name, email, timesheet, digitalWall, sqcdp) {
+    return { name, email, timesheet, digitalWall, sqcdp };
   }
   
   const rows = [
-    createData('Cupcake', 305, 3.7, 67, 4.3),
-    createData('Donut', 452, 25.0, 51, 4.9),
-    createData('Eclair', 262, 16.0, 24, 6.0),
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Gingerbread', 356, 16.0, 49, 3.9),
-    createData('Honeycomb', 408, 3.2, 87, 6.5),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-    createData('Jelly Bean', 375, 0.0, 94, 0.0),
-    createData('KitKat', 518, 26.0, 65, 7.0),
-    createData('Lollipop', 392, 0.2, 98, 0.0),
-    createData('Marshmallow', 318, 0, 81, 2.0),
-    createData('Nougat', 360, 19.0, 9, 37.0),
-    createData('Oreo', 437, 18.0, 63, 4.0),
+    createData('sunil', 'sunilgidd051@gmail.com',0,0,0),
+    createData('sgidd',  'sunilgidd052@gmail.com',0,0,0),
+    createData('sgidd2',  'sunilgidd053@gmail.com',0,0,0),
+    
   ];
 
 
@@ -42,7 +33,7 @@ class Table extends Component {
             
                   console.log(r)
                 //  console.log(row)
-                 if(r === row.name){
+                 if(r.email === row.email){
                     rows.splice(i,1)
                      console.log(this.state.rows)
                  }
@@ -56,16 +47,89 @@ class Table extends Component {
 
     shouldComponentUpdate(nextProps, nextState){
         // return nextState.rows.length !== this.state.rows.length;
+        console.log(nextState.rows)
         return true;
     }
 
     componentDidUpdate(){
-        console.log('table didupdate')
+        console.log('table did update')
+    }
+
+    handleRows = (newRows) => {
+        console.log(newRows);
+        let stateRows = this.state.rows;
+        console.log(stateRows);
+       
+        const rows = newRows.map(row => ({
+            name : row.name,
+            email: row.email,
+            timesheet : row.Tools.indexOf('timesheet') !== -1 ? 1:0,
+            digitalWall: row.Tools.indexOf('digitalWall') !== -1 ? 1:0,
+            sqcdp: row.Tools.indexOf('sqcdp') !== -1 ? 1 : 0
+            
+        }))
+
+     
+        console.log(rows);
+
+        rows.map((row ,i) => {
+            stateRows.map( (stateRow ,i) => {
+                if( stateRow.email === row.email) {
+                    console.log(stateRows[i].name)
+                    console.log(row.name)
+                    row.name = stateRows[i].name
+                    stateRows[i] = row;
+                    
+                }
+                
+                
+            })
+
+        })
+
+        // for(let i=0; i<rows.length;i++){
+        //     for(let j=0; j<stateRows.length ; j++){
+        //         if(rows[i].email === stateRows[j].email){
+        //             rows[i].name = stateRows[i].name;
+        //             stateRows[i] = rows[i];
+        //         }
+        //     }
+        // }
+
+      
+        console.log(stateRows)
+        
+        this.setState({rows :stateRows });
+    }
+
+    handleSelectAllClick = (allRows) => {
+        // const allRows = this.state.rows;
+        // console.log(allRows);
+        // allRows.map(row => {
+        //     row.timesheet = row.timesheet === 0 ? 1 : 0 ;
+        //     row.digitalWall = row.digitalWall === 0 ? 1 : 0 ;
+        //     row.sqcdp = row.sqcdp === 0 ? 1 : 0 ;
+        // })
+
+        // console.log(allRows);
+
+        this.setState({rows: allRows});
+    }
+
+    handleRowClick = (selectedRows) => {
+        this.setState({rows: selectedRows})
+    }
+
+    handleToolClick = (rows) => {
+        this.setState({rows})
     }
 
     render() {
         return (
-            <EnhancedTable rows = {this.state.rows} deleteRowsHandler={this.deleteRowsHandler}/>
+            <EnhancedTable rows = {this.state.rows} deleteRowsHandler={this.deleteRowsHandler} 
+            handleToolClick = {this.handleToolClick}
+            handleSelectAllClick = {this.handleSelectAllClick}
+            handleClick = {this.handleRowClick}/>
         );
     }
 }
