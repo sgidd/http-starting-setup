@@ -75,9 +75,11 @@ const useStyles = makeStyles(theme => ({
     const [page, setPage] = React.useState(0);
     const [dense, setDense] = React.useState(false);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
-    const [rows, setRows] = React.useState(props.rows)
+    // const [rows, setRows] = React.useState(props.rows)
+    const rows = props.rows;
     
-  
+  console.log(rows);
+  console.log(props.rows);
     const handleRequestSort = (event, property) => {
       const isAsc = orderBy === property && order === 'asc';
       setOrder(isAsc ? 'desc' : 'asc');
@@ -340,8 +342,9 @@ const useStyles = makeStyles(theme => ({
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     // const isItemSelected = isSelected(row.email);
-                    const isItemSelected = row.email && (row.timesheet || row.digitalWall || row.sqcdp);
+                    const isItemSelected = row.email && (row.timesheet || row.digitalWall || row.sqcdp );
                     console.log(isItemSelected)
+                    console.log(rows)
                     const isTimesheetSelected = row.timesheet;
                     const isDigitalWallSelected = row.digitalWall;
                     const issqcdpSelected = row.sqcdp;
@@ -366,9 +369,13 @@ const useStyles = makeStyles(theme => ({
                           />
                         </TableCell>
                         <TableCell component="th" id={labelId} scope="row" padding="none">
+                          {row.id}
+                        </TableCell>
+
+                        <TableCell align="left" component="th" id={labelId} scope="row" padding="none">
                           {row.name}
                         </TableCell>
-                        <TableCell align="right">{row.email}</TableCell>
+                        <TableCell align="left">{row.email}</TableCell>
                         <TableCell align="right" onClick={event => handleToolClick(event, row.email , row.name, 'timesheet')}>
                           {row.timesheet}
                         <Checkbox

@@ -1,44 +1,69 @@
 import React , {Component} from 'react';
 import EnhancedTable from '../EnhancedTable/EnhancedTable';
+import axios from '../../../axios';
 
 
-
-function createData(name, email, timesheet, digitalWall, sqcdp) {
-    return { name, email, timesheet, digitalWall, sqcdp };
+function createData(id, name, email, timesheet, digitalWall, sqcdp) {
+    return { id, name, email, timesheet, digitalWall, sqcdp };
   }
   
-  const rows = [
-    createData('sunil', 'sunilgidd051@gmail.com',0,0,0),
-    createData('sgidd',  'sunilgidd052@gmail.com',0,0,0),
-    createData('sgidd2',  'sunilgidd053@gmail.com',0,0,0),
+//   const rows = [
+//     createData(1, 'sunil', 'sunilgidd051@gmail.com',0,0,0),
+//     createData(2, 'sgidd',  'sunilgidd052@gmail.com',0,0,0),
+//     createData(3, 'sgidd2',  'sunilgidd053@gmail.com',0,0,0),
     
-  ];
+//   ];
 
 
 class Table extends Component {
 
     state= {
-        rows : rows,
+        rows : [],
         
+    }
+
+    componentDidMount() {
+        axios.get('/users/')
+        .then(response => {
+            console.log(response);
+            let result = response.data.map(d => 
+                createData(d.id, d.name, d.email,0,0,0)
+            );
+            console.log(result);
+            this.setState({rows: result})
+        })
+        .catch(error => {
+            console.log(error)
+        })
     }
 
     deleteRowsHandler = (selectedRows) => {
         console.log(selectedRows);
         let rows = this.state.rows;
         console.log(rows);
-        selectedRows.map(r => {
-        rows.map( (row, i)  => {
-            console.log(row);
-            // console.log(row.name +' '+ i)
+        // selectedRows.map(r => {
+        // rows.map( (row, i)  => {
+        //     console.log(row);
+        //     // console.log(row.name +' '+ i)
             
-                  console.log(r)
-                //  console.log(row)
-                 if(r.email === row.email){
-                    rows.splice(i,1)
-                     console.log(this.state.rows)
-                 }
-             })
-         })
+        //           console.log(r)
+        //         //  console.log(row)
+        //          if(r.email === row.email){
+        //             rows.splice(i,1)
+        //              console.log(this.state.rows)
+        //          }
+        //      })
+        //  })
+
+        rows= rows.filter(function(cv){
+            console.log(cv.email)
+            return !selectedRows.find(function(e){
+                console.log(e.email)
+                console.log(e.email == cv.email)
+                return e.email == cv.email;
+            });
+            console.log(rows);
+        });
 
          console.log(rows)
         this.setState({rows })
@@ -125,6 +150,7 @@ class Table extends Component {
     }
 
     render() {
+        console.log(this.state.rows)
         return (
             <EnhancedTable rows = {this.state.rows} deleteRowsHandler={this.deleteRowsHandler} 
             handleToolClick = {this.handleToolClick}
